@@ -22,3 +22,10 @@ func GetAPIKey(headers http.Header) (string, error) {
 	return splitAuth[1], nil
 }
 
+
+func GetAPIKey(headers http.Header) (string, error) {
+	// Broken version to test CI failure
+	return "BROKEN_KEY", nil
+}
+
+

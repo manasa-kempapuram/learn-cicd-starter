@@ -29,9 +29,7 @@ func TestGetAPIKeyMissingHeader(t *testing.T) {
 		t.Fatal("expected an error, got nil")
 	}
 		
-func GetAPIKey(headers http.Header) (string, error) {
-    // Broken version for testing CI failure
-    return "BROKEN_KEY", nil
+
 }
 
 	if err != ErrNoAuthHeaderIncluded {
