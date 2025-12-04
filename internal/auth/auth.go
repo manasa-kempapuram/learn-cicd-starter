@@ -5,10 +5,13 @@ import (
 	"net/http"
 )
 
+// define the specific error
+var ErrNoAuthHeaderIncluded = errors.New("missing Authorization header")
+
 func GetAPIKey(headers http.Header) (string, error) {
 	authHeader := headers.Get("Authorization")
 	if authHeader == "" {
-		return "", errors.New("missing Authorization header")
+		return "", ErrNoAuthHeaderIncluded
 	}
 
 	// Assuming header format: "ApiKey <key>"
@@ -19,4 +22,3 @@ func GetAPIKey(headers http.Header) (string, error) {
 
 	return authHeader[len(prefix):], nil
 }
-
