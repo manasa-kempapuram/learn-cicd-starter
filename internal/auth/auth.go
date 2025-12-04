@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// define the specific error
+// Define the specific error used in tests
 var ErrNoAuthHeaderIncluded = errors.New("missing Authorization header")
 
 func GetAPIKey(headers http.Header) (string, error) {
@@ -14,7 +14,7 @@ func GetAPIKey(headers http.Header) (string, error) {
 		return "", ErrNoAuthHeaderIncluded
 	}
 
-	// Assuming header format: "ApiKey <key>"
+	// Expect header format: "ApiKey <key>"
 	const prefix = "ApiKey "
 	if len(authHeader) <= len(prefix) || authHeader[:len(prefix)] != prefix {
 		return "", errors.New("malformed Authorization header")

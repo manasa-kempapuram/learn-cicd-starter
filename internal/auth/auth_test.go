@@ -33,3 +33,19 @@ func TestGetAPIKeyMissingHeader(t *testing.T) {
 		t.Fatalf("expected ErrNoAuthHeaderIncluded, got %v", err)
 	}
 }
+
+func TestGetAPIKeyMalformedHeader(t *testing.T) {
+	headers := http.Header{}
+	headers.Set("Authorization", "Bearer not-an-api-key")
+
+	_, err := GetAPIKey(headers)
+
+	if err == nil {
+		t.Fatal("expected an error for malformed header, got nil")
+	}
+}
+
+// Optional: temporary failing test to check CI
+// func TestBreak(t *testing.T) {
+//     t.Fatalf("forcing this test to fail")
+// }
