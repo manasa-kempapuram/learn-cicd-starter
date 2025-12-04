@@ -24,7 +24,6 @@ jobs:
       - name: Run tests
         run: go test ./...
 
-func TestBreak(t *testing.T) {
-    t.Fatalf("forcing this test to fail")
+
 }
 
