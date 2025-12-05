@@ -31,6 +31,5 @@ jobs:
           python -m pip install pytest
 
       # 4️⃣ Run tests
-      - name: Run tests
-        run: |
-          python -m pytest
+      - name: Run Go tests
+        run: go test ./...
