@@ -1,19 +1,15 @@
-
-
 name: ci
 
 on:
-  push:
-  pull_request:
-    
+  push: {}
+  pull_request: {}
 
 jobs:
   tests:
-    name: Tests
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Go
@@ -21,9 +17,8 @@ jobs:
         with:
           go-version: "1.25.1"
 
+      - name: Install dependencies
+        run: go mod tidy
+
       - name: Run tests
-        run: go test ./...
-
-
-}
-
+        run: go test ./... -v
