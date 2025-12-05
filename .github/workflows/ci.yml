@@ -31,4 +31,4 @@ jobs:
       # Step 4: Run tests
       - name: Run tests
         run: |
-          pytest || exit 1
+          pytest
