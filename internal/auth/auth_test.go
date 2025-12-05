@@ -15,6 +15,7 @@ func TestGetAPIKeySuccess(t *testing.T) {
 		t.Fatalf("expected no error, got %v", err)
 	}
 
+	// This will fail because broken function returns "BROKEN_KEY"
 	if key != "apikey_12345" {
 		t.Fatalf("expected 'apikey_12345', got '%s'", key)
 	}
@@ -25,6 +26,7 @@ func TestGetAPIKeyMissingHeader(t *testing.T) {
 
 	_, err := GetAPIKey(headers)
 
+	// This will fail because broken function returns no error
 	if err == nil {
 		t.Fatal("expected an error, got nil")
 	}
