@@ -1,27 +1,30 @@
 name: ci
 
+# Trigger workflow on any push or pull request
 on:
   push:
-    branches: ["*"]
   pull_request:
-    branches: ["*"]
 
 jobs:
   tests:
-    name: Tests
+    name: Run Go Tests
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
+      # Step 1: Checkout the repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
+      # Step 2: Set up Go environment
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version: "1.25.1"
 
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: go mod tidy
 
-      - name: Run Tests
+      # Step 4: Run tests with verbose output
+      - name: Run tests
         run: go test ./... -v
