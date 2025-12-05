@@ -1,8 +1,10 @@
 name: ci
 
 on:
+  push:
+    branches: ["*"]
   pull_request:
-    branches: [main]
+    branches: ["*"]
 
 jobs:
   tests:
@@ -18,5 +20,8 @@ jobs:
         with:
           go-version: "1.25.1"
 
-      - name: Force Failure
-        run: (exit 1)
+      - name: Install dependencies
+        run: go mod tidy
+
+      - name: Run Tests
+        run: go test ./... -v
