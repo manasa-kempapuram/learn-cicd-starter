@@ -1,15 +1,25 @@
 package auth
 
 import (
-    "errors"
-    "net/http"
+	"errors"
+	"net/http"
 )
 
-// ErrNoAuthHeaderIncluded is returned when the Authorization header is missing
-var ErrNoAuthHeaderIncluded = errors.New("no authorization header included")
+// Define the specific error used in tests
+var ErrNoAuthHeaderIncluded = errors.New("missing Authorization header")
 
-// GetAPIKey is temporarily broken to trigger CI failure
 func GetAPIKey(headers http.Header) (string, error) {
-    // Broken version: always returns "BROKEN_KEY"
-    return "BROKEN_KEY", nil
+	authHeader := headers.Get("Authorization")
+	if authHeader == "" {
+		return "", ErrNoAuthHeaderIncluded
+	}
+
+	// Expect header format: "ApiKey <key>"
+	const prefix = "ApiKey "
+	if len(authHeader) <= len(prefix) || authHeader[:len(prefix)] != prefix {
+		return "", errors.New("malformed Authorization header")
+	}
+
+	return authHeader[len(prefix):], nil
 }
+
