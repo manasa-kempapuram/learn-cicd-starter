@@ -22,4 +22,3 @@ func GetAPIKey(headers http.Header) (string, error) {
 
 	return authHeader[len(prefix):], nil
 }
-
