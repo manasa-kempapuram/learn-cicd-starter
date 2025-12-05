@@ -1,34 +1,36 @@
 name: CI
 
-# Trigger on any push or pull request
 on:
   push:
-    branches: [ "*" ]  # triggers on all branches
+    branches: [ "*" ]
   pull_request:
-    branches: [ "*" ]  # triggers on all PRs
+    branches: [ "*" ]
 
 jobs:
   Tests:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout your repo
+      # 1️⃣ Checkout code
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up Python
+      # 2️⃣ Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'  # change if needed
+          python-version: '3.11'
 
-      # Step 3: Install dependencies
+      # 3️⃣ Upgrade pip and install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          # Install requirements if exist
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # Install pytest explicitly
+          python -m pip install pytest
 
-      # Step 4: Run tests
+      # 4️⃣ Run tests
       - name: Run tests
         run: |
-          pytest
+          python -m pytest
